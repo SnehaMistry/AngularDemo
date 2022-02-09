@@ -7,34 +7,35 @@
                     <label for="firstName" class="fw-bold">FirstName</label>
                     <input type="text" class="form-control" id="firstName" formControlName="firstName" (input)="check()">
 
-                    <!-- <span class="help-block text-danger"  *ngIf="formControl['firstName'].touched && formControl['firstName'].invalid" >
-                        <span >Firstname is invalid</span>
-                        <span>field is required</span>
-                    </span> -->
+                    <span class="help-block text-danger">
+                        <span *ngIf="(formControl['firstName'].touched || submitted) && formControl['firstName'].errors?.['required']">Firstname is Required</span>
+                        <!-- <span *ngIf="submitted && formControl['firstName'].errors['required']"></span> -->
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="lastName" class="fw-bold">LastName</label>
                     <input type="text" class="form-control" id="lastName" formControlName="lastName" />
 
-                    <!-- <span class="help-block text-danger">
-                        <span>Lastname is invalid</span>
-                        <span>field is required</span>
-                    </span> -->
+                    <span class="help-block text-danger">
+                        <span *ngIf="(formControl['lastName'].touched || submitted) && formControl['lastName'].errors?.['required']">Lastname is Required</span>
+                        <!-- <span>field is required</span> -->
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="fw-bold">Email</label>
                     <input type="email" class="form-control" id="email" formControlName="email" />
 
-                    <!-- <span class="help-block text-danger">
-                        please enter a valid email id
-                    </span> -->
+                    <span class="help-block text-danger" *ngIf="(formControl['email'].touched || submitted) && formControl['email'].errors?.['required']">
+                        Email is Required
+                    </span>
+                    <span *ngIf="formControl['email'].touched && formControl['email'].errors?.['email']" [ngClass]="{'text-danger': formControl['email'].errors?.['email']}">Please enter valid Email pattern.</span>
                 </div>
 
                 <div class="form-group">
                     <label for="phoneNo" class="fw-bold">Phone No</label>
-                    <input type="phoneNo" class="form-control" id="phoneNo"  ng-minlength=9 ng-maxlength=9 formControlName="phoneNo" mask='(000) 000-0000'/>
+                    <input type="phoneNo" class="form-control" id="phoneNo" formControlName="phoneNo" />
 
                     <!-- <span class="help-block text-danger">
                         please match a valid Phone No pattern
@@ -46,21 +47,18 @@
                 <label class="form-label" class="fw-bold">Gender</label>
                 <div class="form-check"  *ngFor="let gender of genders">
                     <label class="form-check-label">
-                        <input type="radio" class="form-check-input" formControlName="gender" value="gender">{{gender}}
+                        <input type="radio" class="form-check-input" name="gender" formControlName="gender" value="{{gender}}">{{gender}}
                     </label>
                 </div>
-                <!-- <span class="help-block text-danger">
-                    field is required, please select any one
-                </span> -->
+                <span *ngIf="submitted && formControl['gender'].errors?.['required']" [ngClass]="{'text-danger': formControl['gender'].errors?.['required']}">
+                    Field is required, please select any one
+                </span>
             </div>
 
             <div class="form-group">
                 <label for="birthday" class="fw-bold">Date of Birth</label>
-                <input type="date" class="form-control" id="birthday" formControlName="birthday">
+                <input type="date" class="form-control" id="birthday" formControlName="birthday" [ngClass]="{'border border-danger rounded text-danger':submitted && formControl['birthday'].errors?.['required']}">
 
-                <!-- <span class="help-block text-danger">
-                    field is required
-                </span> -->
             </div>
 
             <div class="form-group">

@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class UserFormComponent implements OnInit {
   genders=['male','female'];
   employeeForm: FormGroup;
+  submitted = false;
+
   constructor(private formBuilder: FormBuilder) {
    }
   
@@ -31,6 +33,7 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(){
+    this.submitted = true;
     debugger;
   
     console.log('hii');
