@@ -25,4 +25,9 @@ export class EmployeesService {
   {
     return this.http.post<Employee>(`${this.apilink}/employee/`, empDetails);
   }
+
+  getEmployee() : Observable<Employee>
+  {
+    return this.http.get<Employee>(`${this.apilink}/employee/`);
+  }
 }
