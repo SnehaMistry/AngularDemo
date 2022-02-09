@@ -1,0 +1,79 @@
+<div class="p-5">
+    <h1 class="text-center mt-2">Employee Form</h1>
+    <div class="col-md-8 col-md-offset-2 col-sm-offset-1 ps-5 pe-5">
+        <form *ngIf="employeeForm" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+            <div>
+                <div class="form-group">
+                    <label for="firstName" class="fw-bold">FirstName</label>
+                    <input type="text" class="form-control" id="firstName" formControlName="firstName" (input)="check()">
+
+                    <!-- <span class="help-block text-danger"  *ngIf="formControl['firstName'].touched && formControl['firstName'].invalid" >
+                        <span >Firstname is invalid</span>
+                        <span>field is required</span>
+                    </span> -->
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" class="fw-bold">LastName</label>
+                    <input type="text" class="form-control" id="lastName" formControlName="lastName" />
+
+                    <!-- <span class="help-block text-danger">
+                        <span>Lastname is invalid</span>
+                        <span>field is required</span>
+                    </span> -->
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="fw-bold">Email</label>
+                    <input type="email" class="form-control" id="email" formControlName="email" />
+
+                    <!-- <span class="help-block text-danger">
+                        please enter a valid email id
+                    </span> -->
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNo" class="fw-bold">Phone No</label>
+                    <input type="phoneNo" class="form-control" id="phoneNo"  ng-minlength=9 ng-maxlength=9 formControlName="phoneNo" mask='(000) 000-0000'/>
+
+                    <!-- <span class="help-block text-danger">
+                        please match a valid Phone No pattern
+                    </span> -->
+                </div>
+            </div>
+
+            <div >
+                <label class="form-label" class="fw-bold">Gender</label>
+                <div class="form-check"  *ngFor="let gender of genders">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" formControlName="gender" value="gender">{{gender}}
+                    </label>
+                </div>
+                <!-- <span class="help-block text-danger">
+                    field is required, please select any one
+                </span> -->
+            </div>
+
+            <div class="form-group">
+                <label for="birthday" class="fw-bold">Date of Birth</label>
+                <input type="date" class="form-control" id="birthday" formControlName="birthday">
+
+                <!-- <span class="help-block text-danger">
+                    field is required
+                </span> -->
+            </div>
+
+            <div class="form-group">
+                <label for="department" class="fw-bold">Department</label>
+                <select class="form-select" formControlName="department">
+                    <option value="0">Select Department</option>
+                </select>
+                <!-- <span class="help-block text-danger">
+                    field is required, Please any of the Department
+                </span> -->
+            </div>
+
+            <button class="btn btn-primary m-3" type="submit">Submit</button> 
+        </form>
+    </div>
+</div>
