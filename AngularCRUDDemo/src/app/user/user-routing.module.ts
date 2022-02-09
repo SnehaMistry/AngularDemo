@@ -7,9 +7,9 @@ import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {
-    path: '', component: UserComponent,
+    path: '',
     children: [
-      { path: '', component: UserListComponent },
+      { path: '', redirectTo: 'user-list', pathMatch: 'full' },
       { path: 'user-list', component: UserListComponent },
       { path: 'user-form', component: UserFormComponent },
     ]

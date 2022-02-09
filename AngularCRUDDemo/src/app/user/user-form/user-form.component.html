@@ -5,7 +5,7 @@
             <div>
                 <div class="form-group">
                     <label for="firstName" class="fw-bold">FirstName</label>
-                    <input type="text" class="form-control" id="firstName" formControlName="firstName" (input)="check()">
+                    <input type="text" class="form-control" id="firstName" formControlName="firstName">
 
                     <span class="help-block text-danger">
                         <span *ngIf="(formControl['firstName'].touched || submitted) && formControl['firstName'].errors?.['required']">Firstname is Required</span>
@@ -37,9 +37,9 @@
                     <label for="phoneNo" class="fw-bold">Phone No</label>
                     <input type="phoneNo" class="form-control" id="phoneNo" formControlName="phoneNo" />
 
-                    <!-- <span class="help-block text-danger">
-                        please match a valid Phone No pattern
-                    </span> -->
+                    <span class="help-block text-danger" *ngIf="formControl['phoneNo'].touched && formControl['phoneNo'].errors?.['required']" [ngClass]="{'text-danger': formControl['phoneNo'].errors?.['required']}">
+                        Please match a valid Phone No pattern
+                    </span>
                 </div>
             </div>
 
@@ -63,14 +63,11 @@
 
             <div class="form-group">
                 <label for="department" class="fw-bold">Department</label>
-                <select class="form-select" formControlName="department">
-                    <option value="0">Select Department</option>
+                <select class="form-select" formControlName="department" [ngClass]="{'border border-danger rounded':submitted && formControl['department'].errors?.['required']}">
+                    <option [value]="0" disabled>Select Department</option>
+                    <option [value]="dept.id" *ngFor="let dept of departments">{{dept.deptname}}</option>
                 </select>
-                <!-- <span class="help-block text-danger">
-                    field is required, Please any of the Department
-                </span> -->
             </div>
-
             <button class="btn btn-primary m-3" type="submit">Submit</button> 
         </form>
     </div>

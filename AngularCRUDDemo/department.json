@@ -1,0 +1,40 @@
+{
+  "departments": [
+    {
+      "id": "D1",
+      "deptname": "Sales"
+    },
+    {
+      "id": "D2",
+      "deptname": "UI Designer"
+    },
+    {
+      "id": "D3",
+      "deptname": "Frontend developer"
+    },
+    {
+      "id": "D4",
+      "deptname": "Backend developer"
+    },
+    {
+      "id": "D5",
+      "deptname": "QA"
+    },
+    {
+      "id": "D6",
+      "deptname": "UAT"
+    }
+  ],
+  "employee": [
+    {
+      "id": 1,
+      "firstName": "devansh",
+      "lastName": "desai",
+      "email": "snehlad5@gmail.com",
+      "phoneNo": "DFDG",
+      "gender": "male",
+      "birthday": "2022-02-10",
+      "department": "D2"
+    }
+  ]
+}

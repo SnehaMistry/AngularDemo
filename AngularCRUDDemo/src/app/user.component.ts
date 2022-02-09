@@ -13,9 +13,5 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public AdduserForm()
-  {
-      console.log('hii'); 
-      this.router.navigate(['user/user-form']);
-  }
+ 
 }

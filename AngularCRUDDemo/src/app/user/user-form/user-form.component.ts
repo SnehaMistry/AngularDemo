@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Department } from '../models/department.model';
+import { Employee } from '../models/employee.model';
+import { EmployeesService } from '../services/employees.service';
 
 @Component({
   selector: 'app-user-form',
@@ -10,13 +13,14 @@ export class UserFormComponent implements OnInit {
   genders=['male','female'];
   employeeForm: FormGroup;
   submitted = false;
-
-  constructor(private formBuilder: FormBuilder) {
+  departments : Department[];
+  EmpDeatilsSave : Employee;
+  constructor(private formBuilder: FormBuilder, private employeeService : EmployeesService ) {
    }
   
   ngOnInit(): void {
     this.buildEmployeeForm();
-    console.log(this.formControl);
+    this.getDepartments();
   }
 
   public buildEmployeeForm() {
@@ -32,17 +36,35 @@ export class UserFormComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    this.submitted = true;
-    debugger;
-  
-    console.log('hii');
+  getDepartments() {
+    this.employeeService.getDepartment().subscribe({
+      next : (v) => this.departments = v,
+      error : (e)=> alert("Somethings Went Wrong" + e)
+      });
   }
 
-  check()
+  onSubmit(){
+    this.submitted = true;
+    if(this.employeeForm.valid)
+    {
+      const EmpDeatilsSave = this.employeeForm.value;
+      if(EmpDeatilsSave.id)
+      {
+        // this.updateEmployee();
+      }
+      else{
+        this.createEmployee(EmpDeatilsSave);
+      }
+    }
+  }
+
+  createEmployee(empDetails : Employee)
   {
-    console.log('')
-    console.log(this.formControl);
+      this.employeeService.saveEmployee(empDetails).subscribe({
+        next : v => {
+          console.log(v);
+        }
+      })  
   }
   get formControl(){
     return this.employeeForm.controls;
