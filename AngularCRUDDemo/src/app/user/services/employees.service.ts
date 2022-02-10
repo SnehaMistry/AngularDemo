@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Department } from '../models/department.model';
 import { Employee } from '../models/employee.model';
@@ -11,7 +11,7 @@ import { Employee } from '../models/employee.model';
 export class EmployeesService {
 
   apilink :string
-
+  empToEdit: Subject<Employee> = new Subject<Employee>();
   constructor(private http : HttpClient) {
       this.apilink = environment.BaseURL;
    }
@@ -23,11 +23,26 @@ export class EmployeesService {
 
   saveEmployee(empDetails : Employee) : Observable<Employee>
   {
-    return this.http.post<Employee>(`${this.apilink}/employee/`, empDetails);
+    return this.http.post<Employee>(`${this.apilink}/employee`, empDetails);
   }
 
-  getEmployee() : Observable<Employee>
+  getEmployees() : Observable<Employee[]>
   {
-    return this.http.get<Employee>(`${this.apilink}/employee/`);
+    return this.http.get<Employee[]>(`${this.apilink}/employee`);
+  }
+
+  getByEmployeeId(empId : number) : Observable<Employee>
+  {
+    return this.http.get<Employee>(`${this.apilink}/employee/${empId}`);
+  }
+
+  updateEmployee(empDetails : Employee) : Observable<Employee>
+  {
+    return this.http.put<Employee>(`${this.apilink}/employee/${empDetails.id}`, empDetails);
+  }
+
+  deleteEmployeeDetail(empId : number) : Observable<Employee>
+  {
+    return this.http.delete<Employee>(`${this.apilink}/employee/${empId}`);
   }
 }

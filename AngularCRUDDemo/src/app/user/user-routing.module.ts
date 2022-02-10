@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'user-list', pathMatch: 'full' },
       { path: 'user-list', component: UserListComponent },
       { path: 'user-form', component: UserFormComponent },
+      { path: 'user-form/:id', component: UserFormComponent }
     ]
   }
 ];

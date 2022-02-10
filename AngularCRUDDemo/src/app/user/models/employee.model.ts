@@ -5,6 +5,6 @@ export interface Employee {
     email : string,
     phoneNo : string,
     gender : string,
-    birthday: Date,
+    birthdate: Date,
     department : string
 }

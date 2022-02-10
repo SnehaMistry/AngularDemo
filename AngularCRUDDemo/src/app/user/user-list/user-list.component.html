@@ -2,9 +2,10 @@
     <Button class="btn btn-primary float-end me-5 mb-4" routerLink="/user/user-form">Add</Button>
 </div>
 <div>
-    <table class="table">
+    <table class="table table-hover">
         <thead>
-            <tr>
+            <tr class="text-center">
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Gender</th>
@@ -14,11 +15,25 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="text-center" >
+            <tr class="text-center" *ngIf="employeeList?.length < 0; else listrecords">
                 <td colspan="6">
                     No record Found
                 </td>
             </tr>
+            <ng-template #listrecords> 
+                <tr class="text-center" *ngFor="let emp of employeeList">
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.firstName + " " + emp.lastName}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.gender}}</td>
+                    <td>{{emp.birthdate | date}}</td>
+                    <td><span *ngFor="let dept of departments">{{emp.department | department : dept}}</span></td>
+                    <td>
+                        <i class="fas fa-edit me-2" (click)="editEmployee(emp.id)"></i>
+                        <i class="fas fa-trash-alt" (click)="deleteEmployee(emp.id)"></i>
+                    </td>
+                </tr>
+            </ng-template>
         </tbody>
     </table>
 </div>

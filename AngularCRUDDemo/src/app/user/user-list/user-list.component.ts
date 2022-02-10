@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Department } from '../models/department.model';
 import { Employee } from '../models/employee.model';
 import { EmployeesService } from '../services/employees.service';
 
@@ -10,22 +11,42 @@ import { EmployeesService } from '../services/employees.service';
 })
 export class UserListComponent implements OnInit {
 
-  employeeList : Employee;
-  constructor(private employeeService : EmployeesService) { }
+  public employeeList : Employee[];
+  public departments : Department[];
+  constructor(private employeeService : EmployeesService, private router : Router) { }
 
   ngOnInit(): void {
+      this.getDepartments();
       this.getEmployeeList();
   }
 
-  getEmployeeList()
+  public getEmployeeList()
   {
-    this.employeeService.getEmployee().subscribe({
-      next : empList => {
-        this.employeeList = empList;
-        console.log(empList);
-      }
-    })
+    this.employeeService.getEmployees().subscribe((employee : Employee[]) => {
+        this.employeeList = employee;
+    });
+    
   }
 
+  public getDepartments()
+  {
+    this.employeeService.getDepartment().subscribe({
+      next : (v) => this.departments = v,
+      error : (e)=> alert("Somethings Went Wrong" + e)
+      });
+  }
+
+  public editEmployee(empId : number)
+  {
+    this.router.navigate(['user/user-form/'+empId]);
+  }
+
+  public deleteEmployee(empId : number)
+  {
+    this.employeeService.deleteEmployeeDetail(empId).subscribe({
+      next : (v) => {console.log('hii'); this.getEmployeeList();},
+      error : (e)=> alert("Somethings Went Wrong" + e)
+    });
+  }
 
 }

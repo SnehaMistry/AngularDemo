@@ -1,0 +1,92 @@
+ <!-- start form and it's method, enctypt, action, autocomplete, novalidate attribute -->
+ <form action="#" method="post" enctype="multipart/form-data" autocomplete="off" >
+    <!-- fieldset for personal information -->
+    <fieldset>
+        <!-- using legend gives the fieldset title -->
+        <legend>{{empLegendTitle}}</legend>
+        <!-- starts with input type text for firstName and it's autofocus -->
+        <div>
+            <label for="firstName">First Name : </label>
+            <input style="margin:1%;" type="text" name="firstName" value={{firstname}} autofocus />
+            {{firstname}}
+        </div>
+        <div>
+            <label for="lastName">Last Name : </label>
+            <input style="margin:1%;" type="text" name="lastName"/>
+        </div>
+        <!-- input type email -->
+        <div>
+            <label for="email">Email : </label>
+            <input style="margin:1%;" type="email" name="email" />
+        </div>
+        <!-- input type as date for selecting date -->
+        <div>
+            <label for="birthdate">Birthdate : </label>
+            <input style="margin:1%;" type="date" name="birthdate" max="2050-12-31" min="1995-01-01"/>
+        </div>
+        <!-- input type radio for selecting one of option-->
+        <div>
+            <label for="gender">Gender : </label>
+            <input style="margin:1%;" type="radio" name="gender"  value="m"  checked/><span>Male</span>
+            <input type="radio" name="gender"  value="f"/><span>Female</span>
+        </div>
+        <div>
+            <label for="image">Passport size photo : </label>
+            <input style="margin:1%;" type="file" name="image" />
+        </div>
+        <div>
+            <label for="color">Faviourite color : </label>
+            <input style="margin:1%;" type="color" name="image" />
+        </div>
+    </fieldset>
+    <!-- end of fieldset for personal information-->
+
+    <!-- second fieldset for contact information -->
+    <fieldset>
+        <legend>{{addressLegentTitle}}</legend>
+        <div >
+            <!-- for mobile no use the input type mobile number so automatically validate and enters only numbers -->
+            <label for="personalNumber">Personal Mobile No : </label>
+            <input style="margin:1%;" type="number" name="personalNumber"/>
+        </div>
+        <div >
+            <label for="emergencyNumber">Emergency Contact Number : </label>
+            <input style="margin:1%;" type="number" name="emergencyNumber"/>
+        </div>
+        <!-- for address use the textarea use the resize attribute for fixed the textarea -->
+        <div >
+            <label for="address">Address : </label>
+            <textarea style="margin:1%;" name="address" cols="30" rows="10" style="resize:none;"></textarea>
+        </div>
+        <!-- use the form select element and option for selecting one of this value -->
+        <div >
+            <label for="country">Country : </label>
+            <!-- multiple attribute set for selecting multiple values -->
+            <select style="margin:1%;" name="country" multiple>
+                <option value="AU">Australia</option>
+                <option value="AF">Afganistan</option>
+                <option value="BR">Brazil</option>
+                <option value="BL">Belgium</option>
+                <option value="CHN">China</option>
+                <option value="IN">India</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="AFC">Africa</option>
+                <option value="SL">Shrilanka</option>
+            </select>
+        </div>
+    </fieldset>
+    <!-- end fieldset -->
+    <!-- define submiting button for the form submit -->
+    <div>
+        <input style="margin:1%;" type="submit" value="Submit" />
+    </div>
+</form>
+<!-- end form -->
+
+
+<div>
+        <iframe width="640" height="360"
+            src="https://www.youtube.com/embed/8LkhH_mS2eY">
+        </iframe>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Department } from '../models/department.model';
 import { Employee } from '../models/employee.model';
 import { EmployeesService } from '../services/employees.service';
@@ -13,14 +14,19 @@ export class UserFormComponent implements OnInit {
   genders=['male','female'];
   employeeForm: FormGroup;
   submitted = false;
+  id : number;
   departments : Department[];
   EmpDeatilsSave : Employee;
-  constructor(private formBuilder: FormBuilder, private employeeService : EmployeesService ) {
+
+  constructor(private formBuilder: FormBuilder, private employeeService : EmployeesService, private route: ActivatedRoute ) {
    }
   
   ngOnInit(): void {
     this.buildEmployeeForm();
     this.getDepartments();
+
+    this.id = this.route.snapshot.params['id'];
+    this.editEmployeeForm();    
   }
 
   public buildEmployeeForm() {
@@ -31,26 +37,26 @@ export class UserFormComponent implements OnInit {
       email: ['',[Validators.required,Validators.email]],
       phoneNo: [null,Validators.required ],
       gender: ['',[Validators.required]],
-      birthday: [null,Validators.required],
+      birthdate: [null,Validators.required],
       department: [null,Validators.required]
     });
   }
 
-  getDepartments() {
+  public getDepartments() {
     this.employeeService.getDepartment().subscribe({
       next : (v) => this.departments = v,
       error : (e)=> alert("Somethings Went Wrong" + e)
       });
   }
 
-  onSubmit(){
+  public onSubmit(){
     this.submitted = true;
     if(this.employeeForm.valid)
     {
       const EmpDeatilsSave = this.employeeForm.value;
       if(EmpDeatilsSave.id)
       {
-        // this.updateEmployee();
+        this.editEmployee(EmpDeatilsSave);
       }
       else{
         this.createEmployee(EmpDeatilsSave);
@@ -58,15 +64,38 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  createEmployee(empDetails : Employee)
+  public createEmployee(empDetails : Employee)
   {
       this.employeeService.saveEmployee(empDetails).subscribe({
         next : v => {
-          console.log(v);
+          this.resetForm();
         }
-      })  
+      });  
   }
+
+  public editEmployeeForm()
+  {    
+    if(this.id)
+    {
+      this.employeeService.getByEmployeeId(this.id)
+      .subscribe(x => this.employeeForm.patchValue(x));
+    }
+  }
+
+  public editEmployee(empDetails : Employee)
+  {
+    this.employeeService.updateEmployee(empDetails).subscribe({
+      next : v =>{
+        this.resetForm();
+      }
+    });  
+  }
+
   get formControl(){
     return this.employeeForm.controls;
+  }
+
+  resetForm(){
+    this.employeeForm.reset();
   }
 }

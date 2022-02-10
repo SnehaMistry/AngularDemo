@@ -28,13 +28,13 @@
   "employee": [
     {
       "id": 1,
-      "firstName": "devansh",
-      "lastName": "desai",
-      "email": "snehlad5@gmail.com",
-      "phoneNo": "DFDG",
+      "firstName": "jigar",
+      "lastName": "bhanushali",
+      "email": "jigar@bhanusali",
+      "phoneNo": "565333",
       "gender": "male",
-      "birthday": "2022-02-10",
-      "department": "D2"
+      "birthdate": "2022-02-04",
+      "department": "D3"
     }
   ]
 }

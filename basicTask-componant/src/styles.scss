@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 1rem;
+}
+.d-flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.cur-pointer{
+    cursor: pointer;
+}
+.card-width{
+    width: 20%;
+}

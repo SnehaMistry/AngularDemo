@@ -8,7 +8,7 @@
                     <input type="text" class="form-control" id="firstName" formControlName="firstName">
 
                     <span class="help-block text-danger">
-                        <span *ngIf="(formControl['firstName'].touched || submitted) && formControl['firstName'].errors?.['required']">Firstname is Required</span>
+                        <span *ngIf="(formControl['firstName']?.touched) && formControl['firstName'].errors?.['required']">Firstname is Required</span>
                         <!-- <span *ngIf="submitted && formControl['firstName'].errors['required']"></span> -->
                     </span>
                 </div>
@@ -18,7 +18,7 @@
                     <input type="text" class="form-control" id="lastName" formControlName="lastName" />
 
                     <span class="help-block text-danger">
-                        <span *ngIf="(formControl['lastName'].touched || submitted) && formControl['lastName'].errors?.['required']">Lastname is Required</span>
+                        <span *ngIf="(formControl['lastName'].touched) && formControl['lastName'].errors?.['required']">Lastname is Required</span>
                         <!-- <span>field is required</span> -->
                     </span>
                 </div>
@@ -27,7 +27,7 @@
                     <label for="email" class="fw-bold">Email</label>
                     <input type="email" class="form-control" id="email" formControlName="email" />
 
-                    <span class="help-block text-danger" *ngIf="(formControl['email'].touched || submitted) && formControl['email'].errors?.['required']">
+                    <span class="help-block text-danger" *ngIf="(formControl['email'].touched) && formControl['email'].errors?.['required']">
                         Email is Required
                     </span>
                     <span *ngIf="formControl['email'].touched && formControl['email'].errors?.['email']" [ngClass]="{'text-danger': formControl['email'].errors?.['email']}">Please enter valid Email pattern.</span>
@@ -50,25 +50,26 @@
                         <input type="radio" class="form-check-input" name="gender" formControlName="gender" value="{{gender}}">{{gender}}
                     </label>
                 </div>
-                <span *ngIf="submitted && formControl['gender'].errors?.['required']" [ngClass]="{'text-danger': formControl['gender'].errors?.['required']}">
+                <span *ngIf="formControl['gender'].touched && formControl['gender'].errors?.['required']" [ngClass]="{'text-danger': formControl['gender'].errors?.['required']}">
                     Field is required, please select any one
                 </span>
             </div>
 
             <div class="form-group">
-                <label for="birthday" class="fw-bold">Date of Birth</label>
-                <input type="date" class="form-control" id="birthday" formControlName="birthday" [ngClass]="{'border border-danger rounded text-danger':submitted && formControl['birthday'].errors?.['required']}">
+                <label for="birthdate" class="fw-bold">Date of Birth</label>
+                <input type="date" class="form-control" id="birthdate" formControlName="birthdate" [ngClass]="{'border border-danger rounded text-danger':formControl['birthdate'].errors?.['required'] && formControl['birthdate'].touched}">
 
             </div>
 
             <div class="form-group">
                 <label for="department" class="fw-bold">Department</label>
-                <select class="form-select" formControlName="department" [ngClass]="{'border border-danger rounded':submitted && formControl['department'].errors?.['required']}">
+                <select class="form-select" formControlName="department" [ngClass]="{'border border-danger rounded':formControl['department'].errors?.['required'] && formControl['department'].touched}">
                     <option [value]="0" disabled>Select Department</option>
                     <option [value]="dept.id" *ngFor="let dept of departments">{{dept.deptname}}</option>
                 </select>
             </div>
-            <button class="btn btn-primary m-3" type="submit">Submit</button> 
+            <button class="btn btn-primary" type="submit" [disabled]="!employeeForm.valid" >Submit</button> 
+            <button type="button" class="btn btn-success m-3" (click)="resetForm()">Reset</button>
         </form>
     </div>
 </div>
